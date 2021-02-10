@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
+import React, { useState } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import LoginPage from "./Pages/login";
 import Page404 from "./Pages/Page404";

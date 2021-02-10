@@ -9,8 +9,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 
-import Page404 from "./Page404";
-
 function LabelPage(props) {
   const history = useHistory();
   const [docData, setDocData] = useState(null);
@@ -20,8 +18,7 @@ function LabelPage(props) {
   const docRef = db.collection("images").doc(props.match.params.id);
 
   const storage = firebase.storage();
-  const storageRef = storage.ref();
-
+  
   useEffect(() => {
     console.log("Running use effect!");
     // Get doc info
