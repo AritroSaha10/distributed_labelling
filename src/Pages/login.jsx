@@ -22,11 +22,7 @@ function LoginPage(props) {
   // Check if user is already logged in
   if (props.user != null) {
     history.push("/label");
-    return (
-        <h1>
-            Hi!
-        </h1>
-    )
+    return <h1>Hi!</h1>;
   }
 
   const loginUser = (data) => {
@@ -55,8 +51,6 @@ function LoginPage(props) {
       console.log(error.code);
       console.log(error.message);
     });
-
-    console.log(props.user);
   };
 
   return (
@@ -93,7 +87,7 @@ function LoginPage(props) {
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Group md="4" controlId="validationFormikUsername2">
                 <Form.Label>Username</Form.Label>
-                <InputGroup hasValidation>
+                <InputGroup>
                   <Form.Control
                     type="text"
                     placeholder="Username"
@@ -110,7 +104,7 @@ function LoginPage(props) {
 
               <Form.Group md="4" controlId="validationFormikPassword2">
                 <Form.Label>Password</Form.Label>
-                <InputGroup hasValidation>
+                <InputGroup>
                   <Form.Control
                     type="password"
                     placeholder="Password"

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import Page403 from "./Page403";
+
 import { useHistory } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
@@ -18,34 +20,31 @@ function LabelPage(props) {
   const docRef = db.collection("images").doc(props.match.params.id);
 
   const storage = firebase.storage();
-  
-  useEffect(() => {
-    console.log("Running use effect!");
-    // Get doc info
 
+  useEffect(() => {
+    // Get doc info
     let tmpData = null;
 
     docRef
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log("Document data:", doc.data());
           tmpData = doc.data();
           setDocData(tmpData);
 
           if (tmpData.labelled) {
             // ALerady labelled
-            history.push("/label");
-          } else {
-            // If it's not labelled and it exists, then we can assign to person
-            // Get image link
-            storage
-              .refFromURL(tmpData.img)
-              .getDownloadURL()
-              .then((url) => {
-                setImgLink(url);
-              });
+            // Don't go back, but instead show who completed it, what it was flagged as, and whether it was completed or not
+            // history.push("/label");
           }
+
+          // Get actual URL from storage ref
+          storage
+            .refFromURL(tmpData.img)
+            .getDownloadURL()
+            .then((url) => {
+              setImgLink(url);
+            });
         } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");
@@ -54,19 +53,43 @@ function LabelPage(props) {
         }
       })
       .catch((error) => {
-        console.log("Error getting document:", error);
-        // DON'T reshuffle, something's wrong
+        if (error.code === "permission-denied") {
+          // Likely happened because of logout, ignore
+        } else {
+          // DON'T reshuffle, something's wrong
+          console.log("Error getting document:", error);
+        }
       });
-  }, []); // [] added to make sure this only runs once
+  }, [docRef, history, storage]); // [] added to make sure this only runs once
 
   if (props.user != null) {
     // Get doc info
     return (
       <div className="container">
         <h1>Labelling</h1>
+        <p>
+          Hello {props.user.email}, welcome to the labelling page! Please
+          identify whether there is a car in the box or not.
+        </p>
 
-        <img src={imgLink} alt="Sample to label" />
+        <br />
 
+        <p>ID of image: {props.match.params.id}</p>
+        {docData && docData.labelled && (
+          <p>
+            <strong>Warning: </strong>This image has already been completed by{" "}
+            {docData.labelledby}, and it was marked as{" "}
+            {docData.hasCar === true ? "having a car." : "not having a car."}
+          </p>
+        )}
+        <img
+          src={imgLink}
+          alt="Sample to label"
+          className="img-fluid rounded"
+          style={{ border: "3px solid #000000", borderRadius: "5px" }}
+        />
+
+        <br />
         <br />
 
         <div>
@@ -125,13 +148,7 @@ function LabelPage(props) {
       </div>
     );
   } else {
-    history.push("/");
-    return (
-      <div className="container">
-        <h1>403: Access Denied</h1>
-        <p>Please log in.</p>
-      </div>
-    );
+    return <Page403 />;
   }
 }
 

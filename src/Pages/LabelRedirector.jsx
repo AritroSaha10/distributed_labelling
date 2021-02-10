@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import Page403 from "./Page403";
+
 import { useHistory } from "react-router-dom";
 
 import firebase from "firebase/app";
@@ -21,12 +23,11 @@ function LabelRedirector(props) {
             window.alert("All images have been labelled!");
             setFinishedLabel(true);
           } else {
-            console.log(querySnapshot.docs[0].id);
             history.push("/label/" + querySnapshot.docs[0].id);
           }
         });
     }
-  }, []);
+  }, [db, history, props.user]);
 
   if (props.user != null) {
     if (finishedLabel) {
@@ -44,17 +45,14 @@ function LabelRedirector(props) {
         <div className="container">
           <h1>Please wait...</h1>
           <p>Finding an unlabelled image for you...</p>
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
         </div>
       );
     }
   } else {
-    history.push("/");
-    return (
-      <div className="container">
-        <h1>403: Access Denied</h1>
-        <p>Please log in.</p>
-      </div>
-    );
+    return <Page403 />;
   }
 }
 
