@@ -60,7 +60,7 @@ function LabelPage(props) {
           console.log("Error getting document:", error);
         }
       });
-  }, [docRef, history, storage]); // [] added to make sure this only runs once
+  }, []); // [] added to make sure this only runs once
 
   if (props.user != null) {
     // Get doc info
