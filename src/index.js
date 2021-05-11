@@ -12,7 +12,6 @@ import "firebase/firestore";
 import "firebase/database";
 import "firebase/performance";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyBA73N67aet1kkKVll2au36Nac-COMpMxA",
   authDomain: "datalabelling-intellihelm.firebaseapp.com",
