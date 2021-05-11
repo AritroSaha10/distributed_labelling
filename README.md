@@ -57,10 +57,13 @@ Realtime Database:
 
 4. Replace the `firebaseConfig` in `index.js` with the data from your own Firebase project to link the website to your project.
 5. Import your dataset into Firestore (Firestore & Storage). A script will be provided to help do so. The general database structure can be found below.
-6. Publish the website using Firebase Hosting.
-7. Setup authentication accounts. Since there is no sign-up functionality in the website because the website is meant to be only used by specific people chosen by the developer, accounts must be set up by going to the authentication tab, clicking "Add User", inputting the email of the user and a random password. After creating the account, click the three dots on the right of the account and then "Reset Password". This will allow the user to create their own password after they change their password using the email sent to them.
+
+![Database Structure](https://user-images.githubusercontent.com/29025984/117883268-354da500-b279-11eb-82a8-a1665c5f4c79.png)
+
+7. Publish the website using Firebase Hosting.
+8. Setup authentication accounts. Since there is no sign-up functionality in the website because the website is meant to be only used by specific people chosen by the developer, accounts must be set up by going to the authentication tab, clicking "Add User", inputting the email of the user and a random password. After creating the account, click the three dots on the right of the account and then "Reset Password". This will allow the user to create their own password after they change their password using the email sent to them.
 9. Edit a bit of the code to match your case. As of now, it is set to classify cars in their blindspot. However, with some changing of the code, specifically code in the file `Label.jsx`, it should match your needs.
-8. You're done! The website should now be accessible by the users you selected.
+10. You're done! The website should now be accessible by the users you selected.
 
 ## Usage
 The usage is similar to a normal website. 
@@ -83,4 +86,4 @@ The usage is similar to a normal website.
 Made by Aritro Saha, 2021.
 
 ## License
-\<insert license>
+This codebase falls under the GNU General Public License v3.0. View the `LICENSE` file for more information.
