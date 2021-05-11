@@ -11,17 +11,22 @@ import LabelPage from "./Pages/Label";
 
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/performance";
+import "firebase/analytics";
 
 function App() {
   const [user, setUser] = useState(firebase.auth().currentUser);
   const [loading, setLoading] = useState(true);
-
+  firebase.performance();
+  
   useEffect(() => {
     setUser(firebase.auth().currentUser);
     firebase.auth().onAuthStateChanged((user) => {
       setLoading(false);
       setUser(user);
     });
+
+    // Get the non-labelled
   }, []);
 
   if (!loading) {
@@ -65,16 +70,7 @@ function App() {
 
           <br />
 
-          <p
-            style={{
-              position: "fixed",
-              bottom: 20,
-              width: "101%",
-              margin: "0 auto",
-            }}
-          >
-            © Aritro Saha 2021
-          </p>
+          <p>© Aritro Saha 2021</p>
         </div>
       </Router>
     );

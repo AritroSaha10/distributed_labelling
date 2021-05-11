@@ -50,6 +50,10 @@ function LoginPage(props) {
     persistencePromise.catch((error) => {
       console.log(error.code);
       console.log(error.message);
+      firebase.analytics().logEvent("loginPersistenceError", {
+        message: error,
+        userAgent: navigator.userAgent,
+      });
     });
   };
 

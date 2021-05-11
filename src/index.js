@@ -9,15 +9,19 @@ import firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/database";
+import "firebase/performance";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCvD5rSvR7c72l0aNNOnNWooMpdkRS51Dg",
-  authDomain: "intellihelm-datalabelling.firebaseapp.com",
-  projectId: "intellihelm-datalabelling",
-  storageBucket: "intellihelm-datalabelling.appspot.com",
-  messagingSenderId: "825808281805",
-  appId: "1:825808281805:web:f9822fefb12c927fb54984",
-  measurementId: "G-TRQGWT7TEG"
+  apiKey: "AIzaSyBA73N67aet1kkKVll2au36Nac-COMpMxA",
+  authDomain: "datalabelling-intellihelm.firebaseapp.com",
+  projectId: "datalabelling-intellihelm",
+  databaseURL: "https://datalabelling-intellihelm-default-rtdb.firebaseio.com/",
+  storageBucket: "datalabelling-intellihelm.appspot.com",
+  messagingSenderId: "421034121336",
+  appId: "1:421034121336:web:b81eb5829d85b7b862758d",
+  measurementId: "G-KWF7PETS0V"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -33,4 +37,21 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+const logWebVitals = (obj) => {
+  firebase.analytics().logEvent(obj.name, {
+    ...obj,
+    userAgent: navigator.userAgent
+  });
+};
+
+reportWebVitals(logWebVitals);
+
+window.onerror = (message, source, lineno, colno, error) => {
+  if (error) message = error.stack;
+  firebase.analytics().logEvent("webError", {
+    message: message,
+    source: source,
+    userAgent: navigator.userAgent
+  });
+};

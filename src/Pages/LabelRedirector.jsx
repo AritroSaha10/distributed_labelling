@@ -11,23 +11,33 @@ import "firebase/firestore";
 function LabelRedirector(props) {
   const history = useHistory();
   let [finishedLabel, setFinishedLabel] = useState(false);
-  let db = firebase.firestore();
-
+  
   useEffect(() => {
+    let db = firebase.firestore();
+
     if (props.user != null) {
-      db.collection("images")
-        .where("labelled", "==", false)
-        .get()
-        .then((querySnapshot) => {
-          if (querySnapshot.empty) {
-            window.alert("All images have been labelled!");
-            setFinishedLabel(true);
-          } else {
-            history.push("/label/" + querySnapshot.docs[0].id);
-          }
-        });
+      // Run after 0.5s to ensure that the shuffler doesn't go over two of them
+      setTimeout(() => {
+        db.collection("images")
+          .where("labelled", "==", false)
+          .limit(10)
+          .get()
+          .then((querySnapshot) => {
+            if (querySnapshot.empty) {
+              window.alert("All images have been labelled!");
+              setFinishedLabel(true);
+            } else {
+              history.push(
+                "/label/" +
+                  querySnapshot.docs[
+                    Math.floor(Math.random() * 100) % querySnapshot.docs.length
+                  ].id
+              );
+            }
+          });
+      }, 500);
     }
-  }, [db, history, props.user]);
+  }, []);
 
   if (props.user != null) {
     if (finishedLabel) {
