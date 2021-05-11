@@ -1,6 +1,9 @@
 # Distributed Dataset Labelling Platform (DDLP)
 A full stack web app designed to distribute the stress of labelling datasets and allowing for multiple people to label whenever and wherever they want, even at the same time.
 
+![Website Preview](https://user-images.githubusercontent.com/29025984/117896239-21606e00-b28e-11eb-98cb-79871ad1fa9b.png)
+
+
 ## Audience
 The audience for this web app is for groups of people who need a dataset labelled that want a quick and simple solution while avoiding paying to have it labelled. 
 
